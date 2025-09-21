@@ -1,4 +1,4 @@
-// Step 3.1: Set up the API credentials and stops
+// Step 3.1: Set up the API credentials and stops 2:33
 const PTV_USER_ID = '3002484';
 const PTV_API_KEY = '783e7302-3d61-4de8-9db7-6dc87ebca97b';
 

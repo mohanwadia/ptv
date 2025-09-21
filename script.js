@@ -34,12 +34,19 @@ async function getSignature(url) {
 
 // Step 3.3: Fetch the Data
 async function fetchDepartures(stopId) {
+    // Use a CORS proxy to get around the browser security policy
+    const proxyUrl = 'https://cors-anywhere.herokuapp.com/'; 
     const baseUrl = `https://timetableapi.ptv.vic.gov.au/v3/departures/2/${stopId}?devid=${PTV_USER_ID}`;
+
     const signature = await getSignature(baseUrl);
     const apiUrl = `${baseUrl}&signature=${signature}`;
 
+    // Combine the proxy URL and the API URL
+    const finalUrl = `${proxyUrl}${apiUrl}`;
+
     try {
-        const response = await fetch(apiUrl);
+        // Note: We fetch from the proxy URL now, not the direct API URL
+        const response = await fetch(finalUrl); 
         const data = await response.json();
         return data;
     } catch (error) {
@@ -47,7 +54,6 @@ async function fetchDepartures(stopId) {
         return null;
     }
 }
-
 // Step 3.4: Display the Data
 function displayDepartures(stop, data) {
     const container = document.getElementById('departures-container');
